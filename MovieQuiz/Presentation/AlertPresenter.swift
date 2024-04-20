@@ -8,7 +8,7 @@ final class AlertPresenter: AlertPresenterProtocol {
     
     weak var alertDelegate: UIViewController?
     
-    init(alertDelegate: UIViewController) {
+    init(alertDelegate: UIViewController?) {
         self.alertDelegate = alertDelegate
     }
     
@@ -24,6 +24,8 @@ final class AlertPresenter: AlertPresenterProtocol {
             handler: result.completion)
         
         alert.addAction(action)
+        alert.preferredAction = action
+        alert.view.accessibilityIdentifier = "Game Results"
         
         alertDelegate?.present(alert, animated: true, completion: nil)
     }

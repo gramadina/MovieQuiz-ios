@@ -4,20 +4,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // MARK: - Lifecycle
     
-    struct ViewModel {
-        let image: UIImage
-        let question: String
-        let questionNumber: String
-    }
-    
     
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
-    
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var yesButton: UIButton!
-    @IBOutlet weak private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     private let questionsAmount: Int = 10
     private var currentQuestionIndex = 0
