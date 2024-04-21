@@ -63,7 +63,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         return questionStep
     }
     
-    func isLastQuestion() -> Bool {
+    private func isLastQuestion() -> Bool {
         currentQuestionIndex == questionsAmount - 1
     }
     
@@ -73,11 +73,11 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
     }
     
-    func switchToNextQuestion() {
+    private func switchToNextQuestion() {
         currentQuestionIndex += 1
     }
     
-    func didAnswer(isCorrectAnswer: Bool) {
+    private func didAnswer(isCorrectAnswer: Bool) {
         if (isCorrectAnswer) {correctAnswers += 1}
     }
     
@@ -94,7 +94,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         }
     
     private func proceedToNextQuestionOrResults() {
-            if self.isLastQuestion() {
+            if isLastQuestion() {
                 let text = correctAnswers == self.questionsAmount ?
                 "Поздравляем, вы ответили на 10 из 10!" :
                 "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
@@ -105,7 +105,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
                     buttonText: "Сыграть ещё раз")
                     viewController?.show(quiz: viewModel)
             } else {
-                self.switchToNextQuestion()
+                switchToNextQuestion()
                 questionFactory?.requestNextQuestion()
             }
         }

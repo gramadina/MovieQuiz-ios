@@ -18,6 +18,9 @@ final class AlertPresenter: AlertPresenterProtocol {
             message: result.message,
             preferredStyle: .alert)
         
+        guard let alertDelegate = alertDelegate else { return }
+        alert.view.accessibilityIdentifier = "Game Results"
+        
         let action = UIAlertAction(
             title: result.buttonText,
             style: .default,
@@ -25,8 +28,7 @@ final class AlertPresenter: AlertPresenterProtocol {
         
         alert.addAction(action)
         alert.preferredAction = action
-        alert.view.accessibilityIdentifier = "Game Results"
         
-        alertDelegate?.present(alert, animated: true, completion: nil)
+        alertDelegate.present(alert, animated: true, completion: nil)
     }
 }

@@ -1,6 +1,17 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController {
+protocol MovieQuizViewControllerProtocol: AnyObject {
+    func show(quiz step: QuizStepViewModel)
+    
+    func highlightImageBorder(isCorrectAnswer: Bool)
+    func unlockButton()
+    func blockButton()
+    func showLoadingIndicator()
+    func hideLoadingIndicator()
+    func showNetworkError(message: String)
+}
+
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol {
     
     // MARK: - Lifecycle
     
@@ -10,7 +21,7 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet weak private var noButton: UIButton!
     @IBOutlet weak private var yesButton: UIButton!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView?
     
     private var presenter: MovieQuizPresenter!
     
@@ -42,16 +53,16 @@ final class MovieQuizViewController: UIViewController {
     }
     
     func unlockButton() {
-            noButton.isEnabled = true
-            yesButton.isEnabled = true
-        }
-
-    func blockButton() {
-            noButton.isEnabled = false
-            yesButton.isEnabled = false
-        }
+        noButton.isEnabled = true
+        yesButton.isEnabled = true
+    }
     
-    // MARK: - Private functions
+    func blockButton() {
+        noButton.isEnabled = false
+        yesButton.isEnabled = false
+    }
+    
+    // MARK: - Functions
     
     func show(quiz step: QuizStepViewModel) {
         imageView.layer.borderColor = UIColor.clear.cgColor
@@ -87,13 +98,13 @@ final class MovieQuizViewController: UIViewController {
     }
     
     func showLoadingIndicator() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        activityIndicator?.isHidden = false
+        activityIndicator?.startAnimating()
     }
     
     func hideLoadingIndicator() {
-        activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
+        activityIndicator?.isHidden = true
+        activityIndicator?.stopAnimating()
     }
     
     func showNetworkError(message: String) {

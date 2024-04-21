@@ -4,8 +4,9 @@
 //
 //  Created by Daria Granina on 15.04.2024.
 //
-
+import Foundation
 import XCTest
+@testable import MovieQuiz
 
 final class MovieQuizUITests: XCTestCase {
     
@@ -76,7 +77,7 @@ final class MovieQuizUITests: XCTestCase {
             sleep(1)
         }
         sleep(3)
-        let alert = app.alerts["Game results"]
+        let alert = app.alerts["Game Results"]
         
         XCTAssertTrue(alert.exists)
         XCTAssertTrue(alert.label == "Этот раунд окончен!")
@@ -90,7 +91,7 @@ final class MovieQuizUITests: XCTestCase {
             sleep(1)
         }
         sleep(10)
-        let alert = app.alerts["Game results"]
+        let alert = app.alerts["Game Results"]
         
         alert.buttons.firstMatch.tap()
         sleep(3)
