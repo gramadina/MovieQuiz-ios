@@ -8,7 +8,7 @@ final class AlertPresenter: AlertPresenterProtocol {
     
     weak var alertDelegate: UIViewController?
     
-    init(alertDelegate: UIViewController) {
+    init(alertDelegate: UIViewController?) {
         self.alertDelegate = alertDelegate
     }
     
@@ -18,13 +18,16 @@ final class AlertPresenter: AlertPresenterProtocol {
             message: result.message,
             preferredStyle: .alert)
         
+        guard let alertDelegate = alertDelegate else { return }
+        
         let action = UIAlertAction(
             title: result.buttonText,
             style: .default,
             handler: result.completion)
         
         alert.addAction(action)
+        alert.preferredAction = action
         
-        alertDelegate?.present(alert, animated: true, completion: nil)
+        alertDelegate.present(alert, animated: true, completion: nil)
     }
 }
